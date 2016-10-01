@@ -6,7 +6,7 @@ import threading
 import json
 import os
 
-url = "http://hannover.freifunk.net/forum/syndication.php?limit=15"
+url = None
 save_file = os.path.expanduser("~/.sopel/seen_forum_posts.json")
 channel = None
 
@@ -31,6 +31,9 @@ def setup(bot):
     if channel is None:
         print("warning: you need to specify freifunkh.channel in your config")
 
+    url = bot.config.freifunkh.forum_rss_url
+    if url is None:
+        print("warning: you need to specify freifunkh.forum_rss_url in your config")
 
 @sopel.module.interval(60)
 def check_forum_every_one_min(bot):
