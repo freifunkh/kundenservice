@@ -11,25 +11,25 @@ Installation
 
 - Clone this repository as ~/.sopel/modules:
 
-    $ mkdir ~/.sopel/
-    $ git clone https://github.com/freifunkh/kundenservice ~/.sopel/modules
+        $ mkdir ~/.sopel/
+        $ git clone https://github.com/freifunkh/kundenservice ~/.sopel/modules
 
 - Use this configuration as testing configuration:
 
-    # ~/.sopel/default.cfg
-    [core]
-    nick = Kundenservice-testing
-    host = irc.hackint.org
-    use_ssl = true
-    verify_ssl = false
-    port = 9999
-    channels = #freifunkh-test
-    enabled = forum
-    owner = <your-irc-name>
+        # ~/.sopel/default.cfg
+        [core]
+        nick = Kundenservice-testing
+        host = irc.hackint.org
+        use_ssl = true
+        verify_ssl = false
+        port = 9999
+        channels = #freifunkh-test
+        enabled = forum
+        owner = <your-irc-name>
 
 - Start sopel:
 
-    $ sopel
+        $ sopel
 
 Features
 --------
