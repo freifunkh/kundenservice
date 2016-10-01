@@ -8,7 +8,7 @@ import os
 
 url = "http://hannover.freifunk.net/forum/syndication.php?limit=15"
 save_file = os.path.expanduser("~/.sopel/seen_forum_posts.json")
-channel = "#freifunkh"
+channel = None
 
 seen = []
 
@@ -20,6 +20,16 @@ try:
         seen = json.loads(f.read())
 except FileNotFoundError:
     print("save_file {} not found.".format(save_file))
+
+def configure(config):
+    # TODO: add configuration possibility
+    pass
+
+def setup(bot):
+    global channel, url
+    channel = bot.config.freifunkh.channel
+    if channel is None:
+        print("warning: you need to specify freifunkh.channel in your config")
 
 
 @sopel.module.interval(60)

@@ -27,6 +27,10 @@ Installation
         enabled = forum
         owner = <your-irc-name>
 
+        [freifunkh]
+        channel = #freifunkh-test
+        forum_rss_url = http://hannover.freifunk.net/forum/syndication.php?limit=15
+
 - Start sopel:
 
         $ sopel
@@ -39,4 +43,7 @@ Features
 Hacking References
 ------------------
 
+- We introduced the ```freifunkh.channel``` config option to specify the
+  channel, where the modules of this repository write in. So it is possible
+  to activate some foreign modules, which can use other channels.
 - [sopel plugin documentation](https://sopel.chat/docs/plugin.html)
