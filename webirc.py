@@ -22,4 +22,4 @@ def write_to_webirc(bot, trigger):
         return
 
     for line in message.split('\n'):
-        bot.say(line.format(nick) + '\n', nick)
+        bot.notice(line.format(nick) + '\n', nick)
