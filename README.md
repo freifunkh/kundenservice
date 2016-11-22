@@ -24,7 +24,7 @@ Installation
         verify_ssl = false
         port = 9999
         channels = #freifunkh-test
-        enabled = forum
+        enabled = forum,webirc
         owner = <your-irc-name>
 
         [freifunkh]
