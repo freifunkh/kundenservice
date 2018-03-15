@@ -29,7 +29,9 @@ Installation
 
         [freifunkh]
         channel = #freifunkh-test
-        forum_rss_url = http://hannover.freifunk.net/forum/syndication.php?limit=15
+        influx_url = http://stats.ffh.zone:8086/query?db=md_test
+        influx_user = md_test
+        influx_test = NOTMYPASS
 
 - Start sopel:
 
