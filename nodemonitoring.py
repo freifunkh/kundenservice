@@ -24,7 +24,7 @@ def setup(bot):
 def influx_q(query):
     r = requests.get(influx['url'],
                      params={'q': query },
-                     auth=(influx['user'], influx['pass']))
+                     auth=(influx['user'], influx['passwd']))
     return r.json()
 
 def series_names():
@@ -71,14 +71,15 @@ def test_all(bot):
 
             if k in current_status:
                 if current_status[k]['ok'] != ok:
-                    write_msg(k, ok, time)
+                    write_msg(bot, k, ok, time)
             
             if k not in current_status:
                 if ok == False:
-                    write_msg(k, ok, time)
+                    #write_msg(bot, k, ok, time)
+                    pass
 
             current_status[k] = dict(ok=ok, last_time=time)
 
 def write_msg(bot, k, ok, time):
     okstr = '[OK]' if ok else '[ALERT]'
-    bot.msg(channel, "{} {k.name} sn: {k.supernode} tester: {k.tester}".format(okstr, k))
+    bot.msg(channel, "{} {k.name} sn: {k.supernode} tester: {k.tester}".format(okstr, k=k))
