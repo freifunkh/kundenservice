@@ -58,7 +58,7 @@ def test(name):
         yield (tags, last_value[bool_index], last_value[time_index])
 
 
-current_status = {}
+previous_status = {}
 statkey = namedtuple('statkey', ['name', 'supernode', 'tester'])
 
 @sopel.module.interval(60)
@@ -68,17 +68,23 @@ def test_all(bot):
     for name in names:
         for tags, ok, time in test(name):
             k = statkey(name=name, supernode=tags['supernode'], tester=tags['tester'])
+            retries = 0
 
-            if k in current_status:
-                if current_status[k]['ok'] != ok:
+            if k in previous_status:
+                # if the current and the last test result do not vary
+                if previous_status[k]['ok'] == ok:
+                    retries = previous_status[k]['retries'] + 1
+
+                # if everything just went back to normal or if the test failed n times in a row
+                if retries == 0 and ok or retries == 2 and not ok:
                     write_msg(bot, k, ok, time)
             
-            if k not in current_status:
+            if k not in previous_status:
                 if ok == False:
-                    #write_msg(bot, k, ok, time)
+                    # write_msg(bot, k, ok, time)
                     pass
 
-            current_status[k] = dict(ok=ok, last_time=time)
+            previous_status[k] = dict(ok=ok, last_time=time, retries=retries)
 
 def write_msg(bot, k, ok, time):
     okstr = '[OK]' if ok else '[ALERT]'
