@@ -5,6 +5,9 @@ import sopel.formatting
 import requests
 from collections import namedtuple
 
+retry_treshold = 2
+
+
 def configure(config):
     # TOOD
     pass
@@ -74,9 +77,12 @@ def test_all(bot):
                 # if the current and the last test result do not vary
                 if previous_status[k]['ok'] == ok:
                     retries = previous_status[k]['retries'] + 1
+                elif previous_status[k][retries] >= retry_treshold and ok:
+                    # They did vary, and and alert was sent sometime in the past. Time to revoke it.
+                    write_msg(bot, k, ok, time)
 
-                # if everything just went back to normal or if the test failed n times in a row
-                if retries == 0 and ok or retries == 2 and not ok:
+                # if the test failed n times in a row
+                if retries == retry_treshold and not ok:
                     write_msg(bot, k, ok, time)
             
             if k not in previous_status:
