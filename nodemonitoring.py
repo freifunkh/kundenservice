@@ -86,9 +86,7 @@ def test_all(bot):
                     write_msg(bot, k, ok, time)
             
             if k not in previous_status:
-                if ok == False:
-                    # write_msg(bot, k, ok, time)
-                    pass
+                pass
 
             previous_status[k] = dict(ok=ok, last_time=time, retries=retries)
 
